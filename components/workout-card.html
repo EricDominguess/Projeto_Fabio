@@ -1,0 +1,53 @@
+<!-- components/workout-card.html -->
+<div class="bg-white rounded-lg shadow-md p-6" ng-show="workouts.length > 0">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div ng-repeat="workout in workouts | orderBy:'-created_at'" class="workout-card bg-gray-50 rounded-lg p-6 border border-gray-200 fade-in">
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex-1">
+          <h4 class="font-semibold text-gray-800">{{ workout.title }}</h4>
+          <p class="text-sm text-gray-600">{{ workout.type | uppercase }}</p>
+        </div>
+        <div class="flex space-x-2">
+          <button ng-click="editWorkout(workout)" class="text-blue-600 hover:text-blue-700 p-1">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button ng-click="deleteWorkout(workout.id)" class="text-red-600 hover:text-red-700 p-1">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <span class="status-badge px-3 py-1 rounded-full text-xs font-medium"
+              ng-class=\"{
+                'bg-green-100 text-green-800': workout.status === 'concluido',
+                'bg-yellow-100 text-yellow-800': workout.status === 'em_andamento',
+                'bg-blue-100 text-blue-800': workout.status === 'agendado'
+              }\">
+          {{ getStatusLabel(workout.status) }}
+        </span>
+      </div>
+
+      <div ng-show="workout.description" class="mb-4 text-sm text-gray-600">
+        {{ workout.description }}
+      </div>
+
+      <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+        <span ng-show="workout.duration"><i class="fas fa-clock mr-1"></i>{{ workout.duration }} min</span>
+        <span ng-show="workout.intensity"><i class="fas fa-fire mr-1"></i>{{ workout.intensity | uppercase }}</span>
+      </div>
+
+      <div class="flex space-x-2">
+        <button ng-click="updateStatus(workout, 'agendado')" ng-class="{'bg-blue-600 text-white': workout.status === 'agendado', 'bg-gray-200 text-gray-600': workout.status !== 'agendado'}" class="flex-1 px-3 py-2 rounded-md text-xs font-medium">
+          Agendar
+        </button>
+        <button ng-click="updateStatus(workout, 'em_andamento')" ng-class="{'bg-yellow-600 text-white': workout.status === 'em_andamento', 'bg-gray-200 text-gray-600': workout.status !== 'em_andamento'}" class="flex-1 px-3 py-2 rounded-md text-xs font-medium">
+          Iniciar
+        </button>
+        <button ng-click="updateStatus(workout, 'concluido')" ng-class="{'bg-green-600 text-white': workout.status === 'concluido', 'bg-gray-200 text-gray-600': workout.status !== 'concluido'}" class="flex-1 px-3 py-2 rounded-md text-xs font-medium">
+          Concluir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

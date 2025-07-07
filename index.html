@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="workoutApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workout Tracker - Acompanhamento de Treinos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/app.js"></script>
+  <script src="js/controllers/auth.controller.js"></script>
+  <script src="js/controllers/workout.controller.js"></script>
+  <script src="js/services/auth.service.js"></script>
+  <script src="js/services/workout.service.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div ng-include="'components/login.html'"></div>
+  <div ng-include="'components/dashboard.html'"></div>
+</body>
+</html>
