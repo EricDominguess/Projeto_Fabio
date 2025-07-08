@@ -1,0 +1,24 @@
+{
+  "workouts": [
+    {
+      "id": 2,
+      "title": "Corrida Matinal",
+      "type": "cardio",
+      "description": "Parque pela manhã",
+      "duration": 30,
+      "intensity": "media",
+      "status": "em_andamento",
+      "created_at": "2025-07-07T10:10:00.000Z"
+    },
+    {
+      "title": "Não compensa",
+      "type": "forca",
+      "description": "se loco",
+      "duration": 320,
+      "intensity": "alta",
+      "status": "agendado",
+      "created_at": "2025-07-08T12:33:14.077Z",
+      "id": 3
+    }
+  ]
+}

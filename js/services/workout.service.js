@@ -1,71 +1,20 @@
-angular.module('workoutApp').service('WorkoutService', function ($q) {
-  let workouts = [
-    {
-      id: 1,
-      title: 'Treino de Peito e Tríceps',
-      type: 'forca',
-      description: 'Supino reto, supino inclinado, paralelas, tríceps testa',
-      duration: 90,
-      intensity: 'alta',
-      status: 'concluido',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 2,
-      title: 'Corrida Matinal',
-      type: 'cardio',
-      description: 'Corrida leve no parque',
-      duration: 30,
-      intensity: 'media',
-      status: 'agendado',
-      created_at: new Date().toISOString()
-    }
-  ];
-
-  let nextId = 3;
+angular.module('workoutApp').service('WorkoutService', function ($http, $q) {
+  const API_URL = 'http://localhost:3000/workouts';
 
   this.getWorkouts = function () {
-    const deferred = $q.defer();
-    setTimeout(() => deferred.resolve(angular.copy(workouts)), 500);
-    return deferred.promise;
+    return $http.get(API_URL).then(res => res.data);
   };
 
   this.createWorkout = function (workout) {
-    const deferred = $q.defer();
-    setTimeout(() => {
-      workout.id = nextId++;
-      workout.created_at = new Date().toISOString();
-      workouts.push(workout);
-      deferred.resolve({ success: true, workout });
-    }, 500);
-    return deferred.promise;
+    workout.created_at = new Date().toISOString();
+    return $http.post(API_URL, workout).then(res => res.data);
   };
 
   this.updateWorkout = function (workout) {
-    const deferred = $q.defer();
-    setTimeout(() => {
-      const index = workouts.findIndex(w => w.id === workout.id);
-      if (index !== -1) {
-        workouts[index] = angular.copy(workout);
-        deferred.resolve({ success: true });
-      } else {
-        deferred.reject({ success: false, message: 'Treino não encontrado' });
-      }
-    }, 500);
-    return deferred.promise;
+    return $http.put(`${API_URL}/${workout.id}`, workout).then(res => res.data);
   };
 
   this.deleteWorkout = function (id) {
-    const deferred = $q.defer();
-    setTimeout(() => {
-      const index = workouts.findIndex(w => w.id === id);
-      if (index !== -1) {
-        workouts.splice(index, 1);
-        deferred.resolve({ success: true });
-      } else {
-        deferred.reject({ success: false, message: 'Treino não encontrado' });
-      }
-    }, 500);
-    return deferred.promise;
+    return $http.delete(`${API_URL}/${id}`).then(res => res.data);
   };
 });

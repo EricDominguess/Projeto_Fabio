@@ -1,26 +1,26 @@
 <!-- components/workout-card.html -->
-<div class="bg-white rounded-lg shadow-md p-6" ng-show="workouts.length > 0">
+<div ng-if="workouts.length > 0" class="bg-white rounded-lg shadow-md p-6 fade-in">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div ng-repeat="workout in workouts | orderBy:'-created_at'"
          class="workout-card bg-gray-50 rounded-lg p-6 border border-gray-200 fade-in">
 
-      <!-- Título, Tipo e Ações -->
+      <!-- Título, tipo e botões de ações -->
       <div class="flex justify-between items-start mb-4">
         <div class="flex-1">
           <h4 class="font-semibold text-gray-800">{{ workout.title }}</h4>
           <p class="text-sm text-gray-600">{{ workout.type | uppercase }}</p>
         </div>
         <div class="flex space-x-2">
-          <button ng-click="editWorkout(workout)" class="text-blue-600 hover:text-blue-700 p-1">
+          <button ng-click="editWorkout(workout)" class="text-blue-600 hover:text-blue-700 p-1" title="Editar">
             <i class="fas fa-edit"></i>
           </button>
-          <button ng-click="deleteWorkout(workout.id)" class="text-red-600 hover:text-red-700 p-1">
+          <button ng-click="deleteWorkout(workout.id)" class="text-red-600 hover:text-red-700 p-1" title="Excluir">
             <i class="fas fa-trash"></i>
           </button>
-        </div>
+        </div>  
       </div>
 
-      <!-- Badge de Status -->
+      <!-- Badge de status -->
       <div class="mb-4">
         <span class="status-badge px-3 py-1 rounded-full text-xs font-medium"
               ng-class="{
@@ -37,7 +37,7 @@
         <p class="text-sm text-gray-600">{{ workout.description }}</p>
       </div>
 
-      <!-- Detalhes -->
+      <!-- Detalhes de duração e intensidade -->
       <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
         <span ng-show="workout.duration">
           <i class="fas fa-clock mr-1"></i>{{ workout.duration }} min
@@ -57,7 +57,6 @@
                 class="flex-1 px-3 py-2 rounded-md text-xs font-medium transition duration-200">
           Agendar
         </button>
-
         <button ng-click="updateStatus(workout, 'em_andamento')"
                 ng-class="{
                   'bg-yellow-600 text-white': workout.status === 'em_andamento',
@@ -66,7 +65,6 @@
                 class="flex-1 px-3 py-2 rounded-md text-xs font-medium transition duration-200">
           Iniciar
         </button>
-
         <button ng-click="updateStatus(workout, 'concluido')"
                 ng-class="{
                   'bg-green-600 text-white': workout.status === 'concluido',
@@ -78,4 +76,11 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Caso não haja treinos -->
+<div ng-if="workouts.length === 0" class="p-8 text-center text-gray-500">
+  <i class="fas fa-dumbbell text-4xl mb-4"></i>
+  <p>Nenhum treino cadastrado ainda.</p>
+  <p class="text-sm">Clique em \"Adicionar Treino\" para começar!</p>
 </div>
